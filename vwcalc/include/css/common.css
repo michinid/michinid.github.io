@@ -1,5 +1,31 @@
 @import "/include/css/reset.css";
 @import "/include/font/atomy.css";
 
-body, input, button { font-family: 'atomy', sans-serif; }
-input {border: 1px solid black; padding: 2px;}
+body, input, button { font-family: 'atomy', sans-serif; font-size: 13px; }
+input { border: 1px solid black; padding: 4px; width: 100%; background-color: white; }
+button { padding: 8px; background-color: black; color: white; cursor: pointer; }
+
+.wrap { display: flex; flex-direction: column; align-items: center; margin: 10px 0; }
+
+.header { padding: 10px 0; width: 200px; }
+.header h1 { font-size: 24px; }
+.header .base-value-wrap { margin: 10px 0; }
+
+.section { min-width: 200px; }
+.article { margin-bottom: 10px; }
+.article h3 { margin-bottom: 5px; font-size: 18px; }
+
+.quick-calc-wrap { padding: 10px; min-width: 200px; background-color: gainsboro; }
+.quick-calc .result-wrap { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 18px; }
+.quick-calc .result-wrap span { margin-bottom: 5px; margin-right: 5px; font-weight: bold; font-size: 30px; }
+.quick-calc button { width: 100%; }
+
+.table-generator-wrap > button { width: 100%; }
+.table-generator-wrap h5 { margin: 10px 0 5px; font-size: 14px;}
+.preset-wrap { display: flex; justify-content: space-between; }
+.preset-wrap button { width: 64px; }
+
+.table-wrap { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; width: 100%; font-family: monospace; }
+.table-wrap .td { display: flex; justify-content: space-between; border: 1px solid black; margin-top: -1px; margin-left: -1px; width: 180px; }
+.table-wrap .td .source { display: flex; justify-content: space-between; padding: 4px; width: 60px; background-color: rgba(0,0,0,.1); }
+.table-wrap .td .result { display: flex; justify-content: space-between; padding: 4px; width: 120px; }

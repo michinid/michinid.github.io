@@ -13,7 +13,6 @@
 		<div class="header">
 			<h1>비율 계산기</h1>
 			<div class="base-value-wrap">
-				<h3>기준 값</h3>
 				<input type="number" id="base-value" placeholder="기준 값 입력">
 			</div>
 		</div>
@@ -22,23 +21,23 @@
 				<h3>빠른 계산기</h3>
 				<div class="quick-calc">
 					<input type="number" id="source-value" placeholder="변환할 값 입력">
-					<div class="result-wrap"><span id="result-value">0.0000</span> vw(%)</div>
+					<div class="result-wrap"><span id="result-value">0.0000</span>vw(%)</div>
 					<button class="btn-copy" onclick="copyResult()">복사하기</button>
+					<input type="hidden" id="clipboard">
 				</div>
 			</div>
 			<div class="article table-generator-wrap">
 				<h3>테이블 생성기</h3>
 				<button onclick="generateTable()">기준 값으로 생성하기</button>
+				<h5>프리셋</h5>
 				<div class="preset-wrap">
-					<h5>프리셋</h5>
 					<button onclick="generateTable(320)">320</button>
 					<button onclick="generateTable(375)">375</button>
 					<button onclick="generateTable(480)">480</button>
 				</div>
-				<div class="table-wrap" id="table"></div>
 			</div>
 		</div>
 	</div>
-	<div class="copy-complete-popup">복사되었습니다</div>
+	<div class="table-wrap" id="table"></div>
 </body>
 </html>
