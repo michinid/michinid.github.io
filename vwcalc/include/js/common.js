@@ -22,9 +22,7 @@ function quickCalc() {
 }
 
 function copyResult() {
-    $('#clipboard').attr('type','text').val(resultVal).select();
-    document.execCommand('copy');
-    $('#clipboard').attr('type','hidden');
+    copyVal(resultVal);
     if(submitLock) return;
     submitLock = true;
     $('.btn-copy').text('복사되었습니다');
@@ -32,6 +30,11 @@ function copyResult() {
         $('.btn-copy').text('복사하기');
         submitLock = false;
     },1000);
+}
+function copyVal(val) {
+    $('#clipboard').attr('type','text').val(val).select();
+    document.execCommand('copy');
+    $('#clipboard').attr('type','hidden');
 }
 function generateTable(val) {
     var _total = parseInt($('#base-value').val());
@@ -51,7 +54,7 @@ function generateTable(val) {
             '       <span class="unit">px</span>' +
             '   </div>' +
             '   <div class="result">' +
-            '       <span class="label">'+_result+'</span>' +
+            '       <span class="label" onclick="copyVal('+_result+')">'+_result+'</span>' +
             '       <span class="unit">vw(%)</span>' +
             '   </div>' +
             '</div>';
