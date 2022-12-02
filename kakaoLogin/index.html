@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>카카오 로그인</title>
+  <style>
+    .btn-logout { display: none; }
+    .login .btn-login { display: none; }
+    .login .btn-logout { display: block; }
+  </style>
+  <script src="/include/js/jquery.js"></script>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <script>
+    const kakaoApiKey = '978435e8ba3f02cf7155205fdb5811fd';
+    var kakaoObj;
+    $(function(){
+      window.Kakao.init(kakaoApiKey);
+      kakaoObj = Kakao.Auth.getAccessToken();
+      if(kakaoObj) {
+        loadAPI();
+      }
+    });
+    function kakaoLogin() {
+      window.Kakao.Auth.login({
+        scope:'profile_nickname, profile_image',
+        success: loadAPI
+      });
+    }
+    function loadAPI() {
+      $('body').addClass('login');
+      window.Kakao.API.request({
+        url:'/v2/user/me',
+        success: res => {
+          const kakao_account = res.kakao_account;
+          var _html = ''
+          _html += '<h1>'+kakao_account.profile.nickname+'</h1>';
+          _html += '<img src="'+kakao_account.profile.profile_image_url+'">';
+          $('#kakao-profile').html(_html);
+        }
+      });
+    }
+    function kakaoLogout() {
+      if(!Kakao.Auth.getAccessToken()) {
+        console.log('로그인 되어있지 않습니다');
+        return;
+      }
+      Kakao.Auth.logout(function(response){
+        console.log(response);
+        $('body').removeClass('login');
+        $('#kakao-profile').html('');
+      });
+    }
+  </script>
+</head>
+<body>
+<div id="kakao-profile"></div>
+<button class="btn-login" onclick="kakaoLogin()">카카오 로그인</button>
+<button class="btn-logout" onclick="kakaoLogout()">로그아웃</button>
+</body>
+</html>
