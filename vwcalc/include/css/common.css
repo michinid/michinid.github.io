@@ -1,0 +1,5 @@
+@import "/include/css/reset.css";
+@import "/include/font/atomy.css";
+
+body, input, button { font-family: 'atomy', sans-serif; }
+input {border: 1px solid black; padding: 2px;}

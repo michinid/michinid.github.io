@@ -1,95 +1,44 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>VW 계산기</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
-	<script src="../asset/jquery.js"></script>
-	<style>
-		body { padding: 20px; }
-		.quick-content { display: flex; flex-direction: row; }
-		.quick-content #result { margin-left: 20px; display: flex; justify-content: center; align-items: center; font-family: 'Source Code Pro', monospace; }
-		.create-quick-wrap { margin-bottom: 20px; }
-		.bookmark { margin-top: 10px; }
-		#vwTable { margin-top: 20px; width: calc(100vw - 40px); height: 1550px; display: flex; flex-direction: column; flex-wrap: wrap; }
-		#vwTable .row { width: 200px; height: 30px; margin-bottom: 1px; margin-right: 5px; display: flex; flex-direction: row; justify-content: space-between; }
-		#vwTable .row:nth-child(even) { background-color: rgba(0,0,0,.15); }
-		#vwTable .row div { display: flex; flex-direction: row; justify-content: space-between; }
-		#vwTable .num { width: 70px; background-color: rgba(0,10,150,.15); }
-		#vwTable .vw { width: 120px; }
-		#vwTable span { padding: 2px 5px; line-height: 1; display: flex; justify-content: center; align-items: center; }
-		#vwTable .label {font-family: 'Source Code Pro', monospace; }
-		#vwTable .value { color: crimson; font-family: 'Source Code Pro', monospace; }
-		#vwTable .unit { background-color: rgba(0,0,0,.15); height: 26px; }
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>비율 계산기</title>
+	<link rel="stylesheet" href="./include/css/common.css">
+	<script src="/include/js/jquery.js"></script>
+	<script src="./include/js/common.js"></script>
 </head>
 <body>
-<div class="wrap">
-	<h1>VW 계산기</h1>
-	<div class="viewport-width-wrap">
-		<h3>전체 테이블 폭</h3>
-		<input type="number" name="viewport-width" id="viewportWidth" value="360">
-	</div>
-	<div class="create-quick-wrap">
-		<h3>빠른계산기</h3>
-		<div class="quick-content">
-			<input type="number" name="px-value" id="pxValue" placeholder="px값 입력">
-			<div id="result">- vw</div>
+	<div class="wrap">
+		<div class="header">
+			<h1>비율 계산기</h1>
+			<div class="base-value-wrap">
+				<h3>기준 값</h3>
+				<input type="number" id="base-value" placeholder="기준 값 입력">
+			</div>
+		</div>
+		<div class="section">
+			<div class="article quick-calc-wrap">
+				<h3>빠른 계산기</h3>
+				<div class="quick-calc">
+					<input type="number" id="source-value" placeholder="변환할 값 입력">
+					<div class="result-wrap"><span id="result-value">0.0000</span> vw(%)</div>
+					<button class="btn-copy" onclick="copyResult()">복사하기</button>
+				</div>
+			</div>
+			<div class="article table-generator-wrap">
+				<h3>테이블 생성기</h3>
+				<button onclick="generateTable()">기준 값으로 생성하기</button>
+				<div class="preset-wrap">
+					<h5>프리셋</h5>
+					<button onclick="generateTable(320)">320</button>
+					<button onclick="generateTable(375)">375</button>
+					<button onclick="generateTable(480)">480</button>
+				</div>
+				<div class="table-wrap" id="table"></div>
+			</div>
 		</div>
 	</div>
-	<div class="create-table-wrap">
-		<h3>테이블 생성기</h3>
-		<button type="submit" onclick="createVWTable()">생성하기</button>
-		<div class="bookmark">
-			<button onclick="createVWTable(320)">320px</button>
-			<button onclick="createVWTable(360)">360px</button>
-			<button onclick="createVWTable(375)">375px</button>
-		</div>
-		<div id="vwTable"></div>
-	</div>
-</div>
-<script>
-$(function(){
-	$(window).load( init );
-});
-
-function init() {
-	$('#pxValue').on( 'propertychange change keyup paste input', quickVWCalc );
-}
-
-function quickVWCalc() {
-	var _value = parseInt( $(this).val() );
-	var _total = parseInt( $('#viewportWidth').val() );
-	var _vw = ((_value/_total)*100).toFixed(4);
-	var _result = '- vw';
-	if( !isNaN( _vw ) ) {
-		_result = _vw+' vw';
-	}
-	$('#result').text( _result );
-}
-
-function createVWTable(val) {
-	var _html = '';
-	var _total;
-	if( val  == undefined ) {
-		_total = parseInt( $('#viewportWidth').val() );
-	} else {
-		_total = val;
-		$('#viewportWidth').val( val )
-	}
-	for( var i=0; i<_total; i++ ) {
-		var _num = i+1;
-		var _vw = ((_num/_total)*100).toFixed(4);
-		_html += '<div class="row">';
-		_html += '	<div class="num"><span class="label">'+_num+'</span><span class="unit">px</span></div>';
-		_html += '	<div class="vw"><span class="value">'+_vw+'</span><span class="unit">vw</span></div>';
-		_html += '</div>';
-	}
-	$('#vwTable').html( _html );
-}
-</script>
+	<div class="copy-complete-popup">복사되었습니다</div>
 </body>
 </html>
